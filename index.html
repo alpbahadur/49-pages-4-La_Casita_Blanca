@@ -3,9 +3,1267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>La Casita Blanca - Authentic Puerto Rican Cuisine Since 1980</title>
+    <meta name="description" content="Experience authentic Puerto Rican comida criolla at La Casita Blanca in Santurce. A beloved family tradition since 1980, featuring grandmother's recipes in a historic 1920s house.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #D35400;
+            --color-secondary: #FFF8E7;
+            --color-accent: #1A5490;
+            --color-dark: #2C1810;
+            --color-text: #4A3528;
+            --color-light: #FAF6F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--color-text);
+            overflow-x: hidden;
+            background: var(--color-light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FFF8E7 0%, #FAF6F0 50%, #FFE8CC 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .animated-bg::before,
+        .animated-bg::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(211, 84, 0, 0.05) 0%, transparent 70%);
+            animation: floatingShapes 25s ease-in-out infinite;
+        }
+
+        .animated-bg::before {
+            top: -50%;
+            left: -50%;
+            animation-delay: 0s;
+        }
+
+        .animated-bg::after {
+            bottom: -50%;
+            right: -50%;
+            animation-delay: -12s;
+        }
+
+        @keyframes floatingShapes {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) rotate(120deg) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg) scale(0.9);
+            }
+        }
+
+        /* Particle Canvas */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            transition: all 0.4s ease;
+            backdrop-filter: blur(0);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 248, 231, 0.97);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Hero Section */
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.4));
+        }
+
+        .hero-title {
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero-subtitle {
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .hero-cta {
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+            animation-delay: 0.9s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(211, 84, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            background: #E65C00;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(211, 84, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-dark);
+            padding: 0.875rem 2.25rem;
+            border: 2px solid var(--color-dark);
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-dark);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(44, 24, 16, 0.3);
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timeline */
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        /* Image Effects */
+        .image-container {
+            overflow: hidden;
+            border-radius: 1rem;
+            position: relative;
+        }
+
+        .image-zoom {
+            transition: transform 0.6s ease;
+        }
+
+        .image-container:hover .image-zoom {
+            transform: scale(1.1);
+        }
+
+        /* Cards */
+        .feature-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: var(--color-primary);
+            margin: 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        /* Text Shadow */
+        .text-shadow {
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Form Styles */
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #E5E5E5;
+            border-radius: 12px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-dark);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Scroll Indicator */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        /* Menu Item Hover */
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Reservation Form Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #F5F5F5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-close::before,
+        .modal-close::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: var(--color-dark);
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover::before,
+        .modal-close:hover::after {
+            background: white;
+        }
+
+        .modal-close::before {
+            transform: rotate(45deg);
+        }
+
+        .modal-close::after {
+            transform: rotate(-45deg);
+        }
+    </style>
 </head>
 <body>
-    <!-- Content will be added here -->
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <h1 class="text-2xl md:text-3xl font-bold" style="color: var(--color-primary); letter-spacing: 2px;">
+                    LA CASITA BLANCA
+                </h1>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-base font-medium" style="color: var(--color-dark);">Home</a>
+                <a href="#story" class="nav-link text-base font-medium" style="color: var(--color-dark);">Our Story</a>
+                <a href="#menu" class="nav-link text-base font-medium" style="color: var(--color-dark);">Menu</a>
+                <a href="#gallery" class="nav-link text-base font-medium" style="color: var(--color-dark);">Gallery</a>
+                <a href="#gatherings" class="nav-link text-base font-medium" style="color: var(--color-dark);">Private Events</a>
+                <a href="#reservations" class="btn-primary" style="position: relative; z-index: 1;">Reserve</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden focus:outline-none" style="color: var(--color-dark);">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden fixed top-0 right-0 h-full w-72 z-50" style="background: var(--color-dark); box-shadow: -5px 0 25px rgba(0,0,0,0.3);">
+            <div class="p-6">
+                <button id="closeMenuBtn" class="text-white float-right focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div class="clear-both mt-12 space-y-6">
+                    <a href="#home" class="block text-white hover:text-orange-400 text-lg transition-colors">Home</a>
+                    <a href="#story" class="block text-white hover:text-orange-400 text-lg transition-colors">Our Story</a>
+                    <a href="#menu" class="block text-white hover:text-orange-400 text-lg transition-colors">Menu</a>
+                    <a href="#gallery" class="block text-white hover:text-orange-400 text-lg transition-colors">Gallery</a>
+                    <a href="#gatherings" class="block text-white hover:text-orange-400 text-lg transition-colors">Private Events</a>
+                    <a href="#reservations" class="block btn-primary text-center mt-8">Reserve a Table</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="./assets/image_0.jpg" alt="La Casita Blanca Restaurant" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <h2 class="hero-title text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 text-shadow" style="letter-spacing: 3px;">
+                LA CASITA BLANCA
+            </h2>
+            <p class="hero-subtitle text-xl md:text-3xl text-white mb-4 font-light text-shadow">
+                Authentic Puerto Rican Comida Criolla
+            </p>
+            <p class="hero-subtitle text-lg md:text-xl text-white mb-12 font-light text-shadow" style="opacity: 0.95;">
+                A Family Tradition Since 1980 in Historic Santurce
+            </p>
+            <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#reservations" class="btn-primary">Book Your Table</a>
+                <a href="#menu" class="btn-secondary" style="border-color: white; color: white;">View Our Menu</a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 scroll-indicator">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="py-24 md:py-32 relative z-10" style="background: var(--color-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--color-dark);">
+                        A Hidden Gem in Santurce
+                    </h2>
+                    <div class="section-divider mx-0"></div>
+                    <p class="text-lg leading-relaxed mb-6" style="color: var(--color-text);">
+                        Since 1980, La Casita Blanca has been serving authentic Puerto Rican cuisine in a traditional 1920s house on Tapia Street in Villa Palmeras, Santurce. What began as a family dream has become a beloved institution.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-8" style="color: var(--color-text);">
+                        Every meal starts with complimentary bacalaítos and our signature plantain soup, and ends with a traditional chichaíto accompanied by coffee beans symbolizing Health, Money, and Love.
+                    </p>
+                    <a href="#story" class="btn-secondary">Discover Our Story</a>
+                </div>
+                <div class="fade-in image-container">
+                    <img src="./assets/image_5.jpg" alt="Traditional Puerto Rican Dishes" class="image-zoom w-full h-auto rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-24 md:py-32 relative z-10" style="background: var(--color-light);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--color-dark);">
+                    The Casita Blanca Experience
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto" style="color: var(--color-text);">
+                    What makes dining with us special
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="fade-in feature-card text-center">
+                    <div class="text-6xl mb-6">🏠</div>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--color-dark);">Historic Setting</h3>
+                    <p style="color: var(--color-text);">
+                        Dine in a beautifully preserved 1920s traditional Puerto Rican house, filled with charm and character that transports you back in time.
+                    </p>
+                </div>
+
+                <div class="fade-in feature-card text-center">
+                    <div class="text-6xl mb-6">👵</div>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--color-dark);">Grandmother's Recipes</h3>
+                    <p style="color: var(--color-text);">
+                        Every dish is crafted using authentic family recipes passed down through generations, bringing you the true flavors of Puerto Rico.
+                    </p>
+                </div>
+
+                <div class="fade-in feature-card text-center">
+                    <div class="text-6xl mb-6">❤️</div>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--color-dark);">Family Hospitality</h3>
+                    <p style="color: var(--color-text);">
+                        Founded by the Pérez family, we welcome you like family with warm service and genuine Puerto Rican hospitality.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Timeline Section -->
+    <section id="story" class="py-24 md:py-32 relative z-10" style="background: var(--color-secondary);">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--color-dark);">
+                    Our Family Legacy
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto" style="color: var(--color-text);">
+                    A journey through generations of culinary tradition and Puerto Rican pride
+                </p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full hidden md:block" style="background: var(--color-primary);"></div>
+
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item mb-16 md:flex items-center">
+                    <div class="md:w-1/2 md:pr-12 mb-4 md:mb-0 md:text-right">
+                        <div class="inline-block text-white px-6 py-3 rounded-full mb-4 font-bold text-lg" style="background: var(--color-primary);">
+                            1980
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--color-dark);">
+                            The Dream Begins
+                        </h3>
+                        <p class="text-lg" style="color: var(--color-text);">
+                            Jesús M. Pérez and his family founded La Casita Blanca on Tapia Street in Villa Palmeras, Santurce, creating a haven for authentic Puerto Rican cuisine.
+                        </p>
+                    </div>
+                    <div class="hidden md:block md:w-1/2 md:pl-12"></div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item mb-16 md:flex items-center">
+                    <div class="hidden md:block md:w-1/2 md:pr-12"></div>
+                    <div class="md:w-1/2 md:pl-12">
+                        <div class="inline-block text-white px-6 py-3 rounded-full mb-4 font-bold text-lg" style="background: var(--color-primary);">
+                            1920s Heritage
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--color-dark);">
+                            A Historic Home
+                        </h3>
+                        <p class="text-lg" style="color: var(--color-text);">
+                            Located in a traditional and picturesque house from the 1920s, our restaurant preserves the architectural charm and warmth of old San Juan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item mb-16 md:flex items-center">
+                    <div class="md:w-1/2 md:pr-12 mb-4 md:mb-0 md:text-right">
+                        <div class="inline-block text-white px-6 py-3 rounded-full mb-4 font-bold text-lg" style="background: var(--color-primary);">
+                            2010
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--color-dark);">
+                            Expanding the Legacy
+                        </h3>
+                        <p class="text-lg" style="color: var(--color-text);">
+                            The family's success allowed them to open Casita Miramar in the former Hotel Toro, expanding our tradition of excellent Puerto Rican food.
+                        </p>
+                    </div>
+                    <div class="hidden md:block md:w-1/2 md:pl-12"></div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item md:flex items-center">
+                    <div class="hidden md:block md:w-1/2 md:pr-12"></div>
+                    <div class="md:w-1/2 md:pl-12">
+                        <div class="inline-block text-white px-6 py-3 rounded-full mb-4 font-bold text-lg" style="background: var(--color-accent);">
+                            Today
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--color-dark);">
+                            Tradition Continues
+                        </h3>
+                        <p class="text-lg" style="color: var(--color-text);">
+                            We continue to welcome guests with the same warmth and delicious bacalaítos, plantain soup, and chichaíto that have become our signature.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 md:py-32 relative z-10" style="background: var(--color-light);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--color-dark);">
+                    Our Menu
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto" style="color: var(--color-text);">
+                    Authentic Puerto Rican flavors that transport you to grandmother's kitchen
+                </p>
+            </div>
+
+            <!-- Featured Dishes -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="menu-item fade-in bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="image-container">
+                        <img src="./assets/image_2.jpg" alt="Traditional Tacos" class="image-zoom w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3" style="color: var(--color-dark);">Traditional Favorites</h3>
+                        <p class="text-base" style="color: var(--color-text);">
+                            Savor our authentic Puerto Rican dishes prepared with love and traditional methods.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="menu-item fade-in bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="image-container">
+                        <img src="./assets/image_6.jpg" alt="Signature Cocktails" class="image-zoom w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3" style="color: var(--color-dark);">Signature Drinks</h3>
+                        <p class="text-base" style="color: var(--color-text);">
+                            Enjoy our handcrafted cocktails and traditional chichaíto with coffee beans.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="menu-item fade-in bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <div class="image-container">
+                        <img src="./assets/image_10.jpg" alt="Delicious Desserts" class="image-zoom w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3" style="color: var(--color-dark);">Sweet Endings</h3>
+                        <p class="text-base" style="color: var(--color-text);">
+                            Indulge in our traditional Puerto Rican desserts that complete your meal perfectly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Menu Image -->
+            <div class="fade-in text-center">
+                <div class="image-container inline-block max-w-4xl">
+                    <img src="./assets/image_9.png" alt="Full Menu" class="w-full h-auto rounded-2xl shadow-2xl">
+                </div>
+                <p class="text-lg mt-8 mb-6" style="color: var(--color-text);">
+                    Visit us to experience the full menu of authentic Puerto Rican comida criolla
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 md:py-32 relative z-10" style="background: var(--color-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--color-dark);">
+                    Gallery
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto" style="color: var(--color-text);">
+                    A glimpse into our restaurant and the delicious food we serve
+                </p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_0.jpg" alt="Restaurant Exterior" class="image-zoom w-full h-full object-cover rounded-xl">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_3.jpg" alt="Delicious Food" class="image-zoom w-full h-full object-cover rounded-xl">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_4.jpg" alt="Fresh Ingredients" class="image-zoom w-full h-full object-cover rounded-xl">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_1.jpg" alt="Wine Selection" class="image-zoom w-full h-full object-cover rounded-xl">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_5.jpg" alt="Dining Experience" class="image-zoom w-full h-full object-cover rounded-xl">
+                </div>
+                <div class="fade-in image-container h-80">
+                    <img src="./assets/image_6.jpg" alt="Signature Drinks" class="image-zoom w-full h-full object-cover rounded-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Gatherings Section -->
+    <section id="gatherings" class="py-24 md:py-32 relative z-10" style="background: var(--color-light);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in image-container order-2 md:order-1">
+                    <img src="./assets/image_5.jpg" alt="Private Events" class="image-zoom w-full h-auto rounded-2xl shadow-2xl">
+                </div>
+                <div class="fade-in order-1 md:order-2">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--color-dark);">
+                        Private Gatherings
+                    </h2>
+                    <div class="section-divider mx-0"></div>
+                    <p class="text-lg leading-relaxed mb-6" style="color: var(--color-text);">
+                        Celebrate your special moments in our historic and charming setting. Whether it's a family reunion, birthday celebration, or business gathering, we provide an authentic Puerto Rican experience.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-8" style="color: var(--color-text);">
+                        Our team will work with you to create a memorable event with our delicious traditional cuisine and warm, welcoming atmosphere.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" style="color: var(--color-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <p style="color: var(--color-text);">Customized menus for your event</p>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" style="color: var(--color-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <p style="color: var(--color-text);">Intimate and authentic atmosphere</p>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" style="color: var(--color-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <p style="color: var(--color-text);">Dedicated service for your guests</p>
+                        </div>
+                    </div>
+                    <a href="#reservations" class="btn-primary">Inquire About Events</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservations Section -->
+    <section id="reservations" class="py-24 md:py-32 relative z-10" style="background: var(--color-secondary);">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--color-dark);">
+                    Visit Us
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-2xl mx-auto" style="color: var(--color-text);">
+                    Join us for an authentic Puerto Rican dining experience in our historic home
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <!-- Contact Info -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6" style="color: var(--color-dark);">Location & Hours</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold mb-2 text-lg" style="color: var(--color-dark);">Address</h4>
+                            <p style="color: var(--color-text);">
+                                Tapia Street<br>
+                                Villa Palmeras, Santurce<br>
+                                San Juan, Puerto Rico
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2 text-lg" style="color: var(--color-dark);">Contact</h4>
+                            <p>
+                                <a href="tel:787-728-5501" style="color: var(--color-primary);" class="hover:underline font-medium">
+                                    (787) 728-5501
+                                </a>
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2 text-lg" style="color: var(--color-dark);">Hours</h4>
+                            <p style="color: var(--color-text);">
+                                Please call for current hours<br>
+                                Walk-ins welcome • Reservations recommended
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Reservation -->
+                <div class="fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--color-dark);">Reserve Your Table</h3>
+                        <p class="mb-6" style="color: var(--color-text);">
+                            Call us to reserve your table or click below to send us a reservation request.
+                        </p>
+                        <div class="space-y-4">
+                            <a href="tel:787-728-5501" class="btn-primary w-full block text-center">
+                                Call to Reserve
+                            </a>
+                            <button id="openReservationModal" class="btn-secondary w-full">
+                                Email Reservation Request
+                            </button>
+                        </div>
+                        <div class="mt-8 pt-6" style="border-top: 2px solid #F5F5F5;">
+                            <p class="text-sm italic" style="color: var(--color-text);">
+                                "We welcome you like family and look forward to serving you our grandmother's recipes."
+                            </p>
+                            <p class="text-sm font-bold mt-2" style="color: var(--color-dark);">
+                                — The Pérez Family
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Modal -->
+    <div id="reservationModal" class="modal">
+        <div class="modal-content p-8 md:p-12">
+            <div class="modal-close" id="closeModal"></div>
+
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-dark);">
+                    Reservation Request
+                </h2>
+                <p style="color: var(--color-text);">
+                    Fill out the form below and we'll confirm your reservation via email or phone
+                </p>
+            </div>
+
+            <form id="reservationForm" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2" style="color: var(--color-dark);">Full Name</label>
+                        <input type="text" name="name" required class="form-input" placeholder="Your name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" style="color: var(--color-dark);">Email</label>
+                        <input type="email" name="email" required class="form-input" placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2" style="color: var(--color-dark);">Phone</label>
+                        <input type="tel" name="phone" required class="form-input" placeholder="(787) 000-0000">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" style="color: var(--color-dark);">Number of Guests</label>
+                        <select name="guests" required class="form-input">
+                            <option value="">Select guests</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5 Guests</option>
+                            <option value="6">6 Guests</option>
+                            <option value="7">7 Guests</option>
+                            <option value="8">8 Guests</option>
+                            <option value="9+">9+ Guests</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2" style="color: var(--color-dark);">Preferred Date</label>
+                        <input type="date" name="date" required class="form-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" style="color: var(--color-dark);">Preferred Time</label>
+                        <select name="time" required class="form-input">
+                            <option value="">Select time</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="13:30">1:30 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="17:30">5:30 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="18:30">6:30 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="19:30">7:30 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2" style="color: var(--color-dark);">Special Requests (Optional)</label>
+                    <textarea name="message" rows="4" class="form-input resize-none" placeholder="Any special occasions, dietary restrictions, or preferences..."></textarea>
+                </div>
+
+                <div class="text-center pt-4">
+                    <button type="submit" class="btn-primary text-center">
+                        Submit Reservation Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <!-- Column 1 -->
+                <div>
+                    <h4 class="text-2xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">La Casita Blanca</h4>
+                    <p class="mb-4 text-sm" style="color: rgba(255,255,255,0.8);">
+                        Authentic Puerto Rican comida criolla served in a historic 1920s house since 1980.
+                    </p>
+                    <p class="text-sm" style="color: rgba(255,255,255,0.8);">
+                        Tapia Street, Villa Palmeras<br>
+                        Santurce, San Juan<br>
+                        Puerto Rico
+                    </p>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#home" class="hover:text-orange-400 transition-colors">Home</a></li>
+                        <li><a href="#story" class="hover:text-orange-400 transition-colors">Our Story</a></li>
+                        <li><a href="#menu" class="hover:text-orange-400 transition-colors">Menu</a></li>
+                        <li><a href="#gallery" class="hover:text-orange-400 transition-colors">Gallery</a></li>
+                        <li><a href="#gatherings" class="hover:text-orange-400 transition-colors">Private Events</a></li>
+                        <li><a href="#reservations" class="hover:text-orange-400 transition-colors">Reservations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Contact Us</h4>
+                    <div class="space-y-3 text-sm">
+                        <p>
+                            <a href="tel:787-728-5501" class="hover:text-orange-400 transition-colors">
+                                Phone: (787) 728-5501
+                            </a>
+                        </p>
+                        <p style="color: rgba(255,255,255,0.8);">
+                            Walk-ins welcome<br>
+                            Reservations recommended
+                        </p>
+                        <div class="pt-4">
+                            <p class="font-bold mb-2">Sister Restaurant</p>
+                            <p style="color: rgba(255,255,255,0.8);">
+                                Visit Casita Miramar in the former Hotel Toro, Miramar
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t pt-8 text-center text-sm" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);">
+                <p>© 2025 La Casita Blanca. All rights reserved. | A Family Tradition Since 1980</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ========== PARTICLE CANVAS ANIMATION ==========
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 2;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
+                this.opacity = Math.random() * 0.3 + 0.2;
+                this.color = ['rgba(211, 84, 0, 0.3)', 'rgba(26, 84, 144, 0.25)', 'rgba(74, 53, 40, 0.2)'][Math.floor(Math.random() * 3)];
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.015;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+
+                this.x += Math.sin(Date.now() * 0.0006 + this.y * 0.008) * 0.2;
+                this.y += Math.cos(Date.now() * 0.0006 + this.x * 0.008) * 0.2;
+
+                if (this.x < -20) this.x = canvas.width + 20;
+                if (this.x > canvas.width + 20) this.x = -20;
+                if (this.y < -20) this.y = canvas.height + 20;
+                if (this.y > canvas.height + 20) this.y = -20;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.opacity;
+
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        const particles = [];
+        const particleCount = window.innerWidth < 768 ? 30 : 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // ========== NAVIGATION SCROLL EFFECT ==========
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ========== MOBILE MENU ==========
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // ========== SCROLL ANIMATIONS ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========== SMOOTH SCROLLING ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========== RESERVATION MODAL ==========
+        const modal = document.getElementById('reservationModal');
+        const openModalBtn = document.getElementById('openReservationModal');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ========== FORM SUBMISSION ==========
+        const reservationForm = document.getElementById('reservationForm');
+
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(reservationForm);
+            const data = Object.fromEntries(formData);
+
+            // In a real application, you would send this data to a server
+            console.log('Reservation Request:', data);
+
+            alert('Thank you for your reservation request! We will contact you shortly to confirm.');
+
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            reservationForm.reset();
+        });
+    </script>
 </body>
 </html>
